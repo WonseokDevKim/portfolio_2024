@@ -134,7 +134,7 @@
 									</li>
 									
 							
-							<c:if test='${sessionScope.memberId != null && sessionScope.memberType ==1 }'>
+							<c:if test='${sessionScope.memberId != null && sessionScope.memberType == 9}'>
 									<li class="dropdown mega-menu"><!-- SHORTCODES -->
 										<a class="dropdown-toggle noicon" href="javascript:movePage(this, '/admin.do')">
 											ADMIN

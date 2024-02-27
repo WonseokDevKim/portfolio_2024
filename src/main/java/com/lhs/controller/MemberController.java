@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +67,12 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/logout.do")
-	public ModelAndView logout(HttpSession session){
+	public ModelAndView logout(HttpServletRequest request, HttpSession session){
+		String contextPath = request.getContextPath();
 		session.invalidate();
 		ModelAndView mv = new ModelAndView();
-		RedirectView rv = new RedirectView(ctx+"/index.do");
-		mv.setView(rv);		
+		RedirectView rv = new RedirectView(contextPath+"/index.do");
+		mv.setView(rv);
 		return mv;
 	}
 
@@ -78,7 +80,12 @@ public class MemberController {
 	@ResponseBody
 	public HashMap<String, Object> login(@RequestParam HashMap<String, String> params, HttpSession session){
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		try {			
+			boolean result = mService.login(params, session);
+			if(!result) {
+				map.put("msg", "로그인 실패");
+			}
 			map.put("nextPage", "/index.do");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,13 +13,14 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	<select id="totalMemberCnt" parameterType="HashMap" resultType="int">
 	
 	</select>
-	
-	<select id="getMemberById" parameterType="HashMap" resultType="HashMap">
-	
+	<!-- public Member getMemberById(HashMap<String, String> params); -->
+	<select id="getMemberById" parameterType="HashMap" resultType="Member">
+		SELECT * FROM S_WonseokDevKim.member 
+		WHERE member_id = #{memberId}
 	</select>
 	
 	<select id="makeCipherText" parameterType="map" resultType="String">
-	SELECT SHA2(MD5(#{memberPw}), 256) AS pw
+		SELECT SHA2(MD5(#{memberPw}), 256) AS pw
 	</select>
 	
 	<select id="checkId" parameterType="map" resultType="int">

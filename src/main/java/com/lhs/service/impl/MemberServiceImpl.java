@@ -3,10 +3,15 @@ package com.lhs.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.lhs.dao.MemberDao;
+import com.lhs.dto.Member;
 import com.lhs.exception.PasswordMissMatchException;
 import com.lhs.exception.UserNotFoundException;
 import com.lhs.service.MemberService;
@@ -43,10 +48,33 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public HashMap<String, Object> login(HashMap<String, String> params) throws UserNotFoundException, PasswordMissMatchException {
-		HashMap<String, Object> member = mDao.getMemberById(params);
-		return member;
+	public boolean login(HashMap<String, String> params, HttpSession session) throws UserNotFoundException, PasswordMissMatchException {
+		// 사용자가 입력한 정보와 일치하는 유저 찾기
+		Member member = mDao.getMemberById(params);
+		// 일치하는 아이디 없으면 UserNotFoundException
+		if(ObjectUtils.isEmpty(member)) {
+			throw new UserNotFoundException();
+		}
+		// 비밀번호 비교
+		// 비밀번호 불일치 -> PasswordMissMatchException
+		String passwd = params.get("memberPw");
+		String encodeTxt = Sha512Encoder.getInstance().getSecurePassword(passwd);
+		
+		if(StringUtils.pathEquals(member.getMemberPw(), encodeTxt)) {
+			session.setAttribute("memberId", member.getMemberId());
+			session.setAttribute("memberNick", member.getMemberNick());
+			session.setAttribute("memberType", member.getTypeSeq());
+			return true;
+		} else {
+			throw new PasswordMissMatchException();
+		}
 	}
+	
+//	@Override
+//	public HashMap<String, Object> login(HashMap<String, String> params) throws UserNotFoundException, PasswordMissMatchException {
+//		HashMap<String, Object> member = mDao.getMemberById(params);
+//		return member;
+//	}
 
 	@Override
 	public int delMember(HashMap<String, Object> params) {	
