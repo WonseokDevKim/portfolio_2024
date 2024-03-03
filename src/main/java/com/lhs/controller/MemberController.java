@@ -36,6 +36,11 @@ public class MemberController {
 	public String goLogin() {
 		return "member/login";
 	}
+	
+	@RequestMapping("/member/goEmailAuthPage.do")
+	public String goEmailAuth() {
+		return "member/emailAuth";
+	}
 
 	@RequestMapping("/member/goRegisterPage.do")
 	public String goRegisterPage() {

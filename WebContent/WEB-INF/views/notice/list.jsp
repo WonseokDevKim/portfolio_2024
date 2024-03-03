@@ -35,7 +35,7 @@
 						<td align="center">글번호</td>
 						<td>
 							<span class="bold">
-								<a href="javascript:movePage(null,'/notice/read.do?boardSeq=boardSeq&currentPage=currentPage')">
+								<a href="javascript:movePage('/notice/read.do?boardSeq=boardSeq&currentPage=currentPage')">
 									title
 								</a>
 							</span>
@@ -53,7 +53,7 @@
 			    <ul class="pagination pagination-simple pagination-sm">
 			    	<!-- 페이징 -->
 				    <li class="page-item">
-			        	<a class="page-link" href="javascript:movePage(null, '/notice/list.do?page=1')">&laquo;</a>
+			        	<a class="page-link" href="javascript:movePage('/notice/list.do?page=1')">&laquo;</a>
 			        </li>
 			        <li class="page-item"><a class="page-link">1</a></li>
 			        <li class="page-item active"><a class="page-link" href="javascript:movePage(null, '/notice/list.do?page=2')">2</a></li>
@@ -69,7 +69,7 @@
 		</div>
 		<div class="row">
 		    <div class="col-md-12 text-right">			   
-		    <a href="javascript:movePage(null, '/notice/goToWrite.do')">
+		    <a href="javascript:movePage('/notice/goToWrite.do')">
 		        <button type="button" class="btn btn-primary">
 		        	<i class="fa fa-pencil"></i> 글쓰기
 		        </button>

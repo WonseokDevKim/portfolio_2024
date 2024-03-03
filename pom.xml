@@ -267,15 +267,11 @@
 
 	<build>
 		<!-- WAR 파일 명 -->
-		<finalName>lhs</finalName>
+		<finalName>ROOT</finalName>
 
-		<!-- 환경설정에 관한 태그 -->
 		<resources>
 			<resource>
 				<directory>src/main/resources-common</directory>
-			</resource>
-			<resource>
-				<directory>src/main/resources-${env}</directory>
 			</resource>
 			<resource>
 				<directory>${project.build.sourceDirectory}</directory>
@@ -284,6 +280,9 @@
 				</includes>
 			</resource>
 		</resources>
+
+		<!-- 환경설정에 관한 태그 -->
+		
 		<!-- /환경설정에 관한 태그 -->
 
 		<plugins>
@@ -297,7 +296,7 @@
 				</configuration>
 			</plugin>
 			<!-- /resource 구분 플러그인 -->
-
+			
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>
@@ -307,7 +306,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.3.2</version>
 				<configuration>
 					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>

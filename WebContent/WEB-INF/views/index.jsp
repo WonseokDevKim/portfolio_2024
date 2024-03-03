@@ -77,7 +77,7 @@
 						<c:choose>
 	                    	<c:when test='${sessionScope.memberId != null}'>
 	                    	<%-- 로그인 사용자 정보 --%>
-	                    	
+	                    		<li><a tabindex="-1" href="javascript:movePage('/member/goEmailAuthPage.do')">이메일 인증하기</a></li>
 								<li class="text-welcome hidden-xs-down">Welcome!! <strong>${sessionScope.memberNick}</strong></li>
 								<li><a tabindex="-1" href="<c:url value='/member/logout.do'/>"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
 	                    	</c:when>

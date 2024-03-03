@@ -14,7 +14,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id ="write" parameterType="HashMap" useGeneratedKeys="true" keyProperty="boardSeq" >
-		
+	<!-- AI 키를 key 이름으로 params에 넣어줌 -->
+		INSERT INTO S_WonseokDevKim.board
+		(type_seq, member_id, member_nick, title, content, has_file, hits, create_dtm, update_dtm)
+		VALUES(#{typeSeq}, #{memberId}, #{memberNick}, #{title}, #{content}, NULL, 0, DATE_FORMAT(now(), '%Y%m%d%H%i%s'), DATE_FORMAT(now(), '%Y%m%d%H%i%s'));
 	</insert>
 	
 	<select id="read" parameterType="HashMap" resultType = "HashMap">
