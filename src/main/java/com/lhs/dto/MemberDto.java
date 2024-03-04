@@ -3,7 +3,7 @@ package com.lhs.dto;
 import org.apache.ibatis.type.Alias;
 
 @Alias("Member")
-public class Member {
+public class MemberDto {
 	private int memberIdx;
 	private int typeSeq;
 	private String memberId;

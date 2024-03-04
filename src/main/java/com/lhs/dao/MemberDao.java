@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
-import com.lhs.dto.Member;
+import com.lhs.dto.MemberDto;
 
 @Repository
 public interface MemberDao {
@@ -18,7 +18,7 @@ public interface MemberDao {
 	
 	public int checkId(HashMap<String, String> params);
 	
-	public Member getMemberById(HashMap<String, String> params);
+	public MemberDto getMemberById(HashMap<String, String> params);
 	
 	public String makeCipherText(HashMap<String, String> params);
 	

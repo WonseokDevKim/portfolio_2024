@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lhs.dto.BoardDto;
+
 public interface BoardService {
 
 	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params);
@@ -37,6 +39,6 @@ public interface BoardService {
 	 */
 	public int delete(HashMap<String, Object> params);
 	
-	public int write(HashMap<String, Object> params, List<MultipartFile> mFiles);
+	public int write(BoardDto boardDto, List<MultipartFile> mFiles);
 
 }

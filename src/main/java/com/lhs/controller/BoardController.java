@@ -1,6 +1,7 @@
 package com.lhs.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lhs.dto.BoardDto;
 import com.lhs.service.AttFileService;
 import com.lhs.service.BoardService;
 import com.lhs.util.FileUtil;
@@ -27,7 +30,7 @@ public class BoardController {
 	private String typeSeq = "2";
 
 	@RequestMapping("/board/list.do")
-	public ModelAndView goLogin(@RequestParam HashMap<String, String> params){
+	public ModelAndView boardList(@RequestParam HashMap<String, String> params){
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/board/list");
 		return mv;
@@ -54,21 +57,43 @@ public class BoardController {
 	@RequestMapping("/board/write.do")
 	@ResponseBody
 	public HashMap<String, Object> write(
-			@RequestParam HashMap<String, Object> params, 
+			BoardDto boardDto, 
 			MultipartHttpServletRequest mReq) {
+		// 처리 결과 담을 map
+		HashMap<String, Object> map = new HashMap<>();
 		
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
+
+		if(!(boardDto.getTypeSeq() == 2)) {
+			boardDto.setTypeSeq(2);
+		}
+		boardDto.setHasFile("N"); // 만약 파일 존재 시 "Y"로 변경 
+		
+		System.out.println("boardDto : " + boardDto);
+		System.out.println("mReq in write() : " + mReq);
+		
+		
+		// 파일 첨부 되어있다면 hasFile = 'Y', 아니면 = 'N"
+		List<MultipartFile> mFiles = mReq.getFiles("attFiles");
+		for(MultipartFile mFile : mFiles) {
+			if(mFile.getSize() != 0) {
+				boardDto.setHasFile("Y");
+				break;
+			}
 		}
 		
-		System.out.println(params);
-		System.out.println(mReq);
+		int result = bService.write(boardDto, mReq.getFiles("attFiles"));
+		// result 1 아니면 등록 실패
+		if(result == 1) {
+			map.put("msg", "게시물 등록 성공");
+		} else {
+			map.put("msg", "게시물 등록 실패");
+		}
 		
-		int result = bService.write(params, mReq.getFiles("attFiles"));
-		// result 1이면 등록 성공 
+		map.put("result", result);
 		
+		System.out.println("boardDto : " + boardDto);
 		
-		return null;
+		return map;
 	}
 
 	@RequestMapping("/board/read.do")

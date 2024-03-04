@@ -124,10 +124,10 @@ function customAjax(url, responseUrl) {
 
 								<form name="writeForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
 									<input type="hidden" name="memberId" value="${ sessionScope.memberId }"/>
-									<input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/>
+									<!-- <input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/> -->
 									<fieldset>
 										<!-- required [php action request] -->
-										<input type="hidden" name="action" value="contact_send" />
+										<!-- <input type="hidden" name="action" value="contact_send" /> -->
 
 
 										<div class="row">

@@ -3,6 +3,8 @@ package com.lhs.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.lhs.dto.BoardDto;
+
 public interface BoardDao {
 	/**
 	 * 모든 리스트 select  
@@ -24,7 +26,7 @@ public interface BoardDao {
 	 * @param params
 	 * @return
 	 */
-	public int write(HashMap<String, Object> params);
+	public int write(BoardDto boardDto);
 	
 	/**
 	 * 글 조회  

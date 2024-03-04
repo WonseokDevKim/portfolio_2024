@@ -11,7 +11,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.lhs.dao.MemberDao;
-import com.lhs.dto.Member;
+import com.lhs.dto.MemberDto;
 import com.lhs.exception.PasswordMissMatchException;
 import com.lhs.exception.UserNotFoundException;
 import com.lhs.service.MemberService;
@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean login(HashMap<String, String> params, HttpSession session) throws UserNotFoundException, PasswordMissMatchException {
 		// 사용자가 입력한 정보와 일치하는 유저 찾기
-		Member member = mDao.getMemberById(params);
+		MemberDto member = mDao.getMemberById(params);
 		// 일치하는 아이디 없으면 UserNotFoundException
 		if(ObjectUtils.isEmpty(member)) {
 			throw new UserNotFoundException();
@@ -61,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
 		String encodeTxt = Sha512Encoder.getInstance().getSecurePassword(passwd);
 		
 		if(StringUtils.pathEquals(member.getMemberPw(), encodeTxt)) {
+			session.setAttribute("memberIdx", member.getMemberIdx());
 			session.setAttribute("memberId", member.getMemberId());
 			session.setAttribute("memberNick", member.getMemberNick());
 			session.setAttribute("memberType", member.getTypeSeq());
