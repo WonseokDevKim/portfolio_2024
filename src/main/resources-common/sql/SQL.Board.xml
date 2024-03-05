@@ -4,13 +4,25 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.dao.BoardDao">
+	<!-- 게시글 작성일 형식 변환 -->
+	<resultMap id="boardResultMap" type="Board">
+	    <result property="formattedCreateDtm" column="formatted_create_dtm"/>
+	    <!-- 다른 필드들에 대한 매핑도 필요에 따라 추가합니다. -->
+	</resultMap>
 	<!-- resultType은 반드시 있어야 함 -->
-	<select id="list" parameterType="HashMap" resultType="HashMap">
-	
+	<!-- public ArrayList<BoardDto> list(HashMap<String, String> params); -->
+	<select id="list" parameterType="HashMap" resultMap="boardResultMap">
+		SELECT board_seq, member_nick, title, hits, DATE_FORMAT(create_dtm, '%Y-%m-%d %H:%i:%s') as formatted_create_dtm
+		FROM S_WonseokDevKim.board
+		WHERE type_seq = #{typeSeq}
+		ORDER BY board_seq DESC
+		LIMIT #{offset}, #{pageSize}
 	</select>
 		
 	<select id="getTotalArticleCnt" parameterType="HashMap" resultType="int">
-	
+		SELECT count(1)
+		FROM S_WonseokDevKim.board
+		WHERE type_seq = #{typeSeq}
 	</select>
 	
 	<insert id ="write" parameterType="Board" useGeneratedKeys="true" keyProperty="boardSeq" >

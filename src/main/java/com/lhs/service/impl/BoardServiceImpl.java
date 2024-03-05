@@ -30,12 +30,12 @@ public class BoardServiceImpl implements BoardService{
 	private String saveLocation;
 	
 	@Override
-	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params) {
+	public ArrayList<BoardDto> list(HashMap<String, Object> params) {
 		return bDao.list(params);
 	}
 
 	@Override
-	public int getTotalArticleCnt(HashMap<String, String> params) {
+	public int getTotalArticleCnt(HashMap<String, Object> params) {
 		return bDao.getTotalArticleCnt(params);
 	}
 

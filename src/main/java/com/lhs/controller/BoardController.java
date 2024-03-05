@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lhs.dto.BoardDto;
+import com.lhs.dto.PageHandler;
 import com.lhs.service.AttFileService;
 import com.lhs.service.BoardService;
 import com.lhs.util.FileUtil;
@@ -30,8 +31,25 @@ public class BoardController {
 	private String typeSeq = "2";
 
 	@RequestMapping("/board/list.do")
-	public ModelAndView boardList(@RequestParam HashMap<String, String> params){
+	public ModelAndView boardList(Integer currentPage, Integer pageSize) {
 		ModelAndView mv = new ModelAndView();
+		HashMap<String, Object> params = new HashMap<>();
+		
+		if(currentPage == null) currentPage = 1;
+		if(pageSize == null) pageSize = 10;
+		params.put("typeSeq", typeSeq);
+		
+		// 총 게시글 수 구하기
+		int totalCnt = bService.getTotalArticleCnt(params);
+		PageHandler ph = new PageHandler(totalCnt, currentPage);
+		// 게시글 목록 가져오기
+		params.put("offset", ph.getOffset());
+		params.put("pageSize", ph.getPageSize());
+		List<BoardDto> list = bService.list(params);
+		
+		// 게시글 목록 list.jsp에 담아서 출력
+		mv.addObject("list", list);
+		mv.addObject("ph", ph);
 		mv.setViewName("/board/list");
 		return mv;
 	}

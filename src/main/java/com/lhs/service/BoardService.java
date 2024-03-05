@@ -10,9 +10,9 @@ import com.lhs.dto.BoardDto;
 
 public interface BoardService {
 
-	public ArrayList<HashMap<String, Object>> list(HashMap<String, String> params);
+	public ArrayList<BoardDto> list(HashMap<String, Object> params);
 	
-	public int getTotalArticleCnt(HashMap<String, String> params);
+	public int getTotalArticleCnt(HashMap<String, Object> params);
 	
 
 	/**

@@ -14,6 +14,8 @@ public class BoardDto {
 	private int hits;
 	private String createDtm;
 	private String updateDtm;
+	// 날짜 형식 변환을 위해 추가
+	private String formattedCreateDtm;
 	
 	public int getBoardSeq() {
 		return boardSeq;
@@ -75,7 +77,13 @@ public class BoardDto {
 	public void setUpdateDtm(String updateDtm) {
 		this.updateDtm = updateDtm;
 	}
-	
+	// 추가
+	public String getFormattedCreateDtm() {
+		return formattedCreateDtm;
+	}
+	public void setFormattedCreateDtm(String formattedCreateDtm) {
+		this.formattedCreateDtm = formattedCreateDtm;
+	}
 	@Override
 	public String toString() {
 		return "BoardDto [boardSeq=" + boardSeq + ", typeSeq=" + typeSeq + ", memberId=" + memberId + ", memberNick="

@@ -71,7 +71,7 @@
 				return;		
 			}
 			$('#content').val(content);
-			customAjax("<c:url value='/board/write.do' />", "/board/list.do");
+			customAjax("<c:url value='/board/write.do' />", "/board/list.do?currentPage=${param.currentPage}&pageSize=${param.pageSize}");
 	});
 });
 
@@ -182,7 +182,7 @@ function customAjax(url, responseUrl) {
 
 									<div class="row">
 										<div class="col-md-12 text-right">
-										<a href="javascript:movePage('/board/list.do')">
+										<a href="javascript:movePage('/board/list.do?currentPage=${param.currentPage}&pageSize=${param.pageSize}')">
 								       	 <button type="button" class="btn btn-primary">목록</button>
 								   		</a>	
 															
