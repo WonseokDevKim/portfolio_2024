@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.lhs.dao.AttFileDao;
@@ -43,8 +44,21 @@ public class BoardServiceImpl implements BoardService{
 
 	//글 조회 
 	@Override
-	public HashMap<String, Object> read(HashMap<String, Object> params) {
-		return bDao.read(params);
+	public BoardDto read(BoardDto boardDto) {
+		try {
+			 boardDto = bDao.read(boardDto);
+			 // 게시물 존재하면 조회 수 1 증가
+			 if(!ObjectUtils.isEmpty(boardDto)) {
+				 int result = bDao.updateHits(boardDto);
+				 // 조회 수 증가 실패한 건 사용자에게 보일 필요는 없음
+				 if(result != 1) {
+					 throw new RuntimeException("게시물 조회 수 증가 실패");
+				 }
+			 }
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 return boardDto;
 	}
 
 	@Override

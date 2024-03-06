@@ -57,7 +57,7 @@
 					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.beginPage - 1}&pageSize=${ph.pageSize}')">&laquo;</a>
 					        </c:when>
 					        <c:otherwise>
-					        	<!-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 -->
+					        	<%-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 --%>
 					            <span class="page-link">&laquo;</span>
 					        </c:otherwise>
 					    </c:choose>
@@ -71,7 +71,7 @@
 					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.endPage + 1}&pageSize=${ph.pageSize}')">&raquo;</a>
 					        </c:when>
 					        <c:otherwise>
-					        	<!-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 -->
+					        	<%-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 --%>
 					            <span class="page-link">&raquo;</span>
 					        </c:otherwise>
 					    </c:choose>
@@ -80,8 +80,16 @@
 		    </div>
 		</div>
 		<div class="row">
-		    <div class="col-md-12 text-right">			   
-		    <a href="javascript:movePage('/board/goToWrite.do?currentPage=${ph.currentPage}&pageSize=${ph.pageSize}')">
+		    <div class="col-md-12 text-right">
+		    <c:choose>
+		    	<c:when test="${sessionScope.memberId != null}">
+		    		<a href="javascript:movePage('/board/goToWrite.do?currentPage=${ph.currentPage}&pageSize=${ph.pageSize}')">
+		    	</c:when>
+		    	<%-- 로그인 안 되어 있으면 버튼 클릭 시 로그인 페이지로 이동 --%>
+		    	<c:otherwise>
+		    		<a href="javascript:movePage('/member/goLoginPage.do')">
+		    	</c:otherwise>
+		    </c:choose>	   
 		        <button type="button" class="btn btn-primary">
 		        	<i class="fa fa-pencil"></i> 글쓰기
 		        </button>

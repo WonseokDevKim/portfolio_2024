@@ -32,10 +32,16 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		VALUES(#{typeSeq}, #{memberId}, #{memberNick}, #{title}, #{content}, #{hasFile}, 0, DATE_FORMAT(now(), '%Y%m%d%H%i%s'), DATE_FORMAT(now(), '%Y%m%d%H%i%s'));
 	</insert>
 	
-	<select id="read" parameterType="HashMap" resultType = "HashMap">
+	<select id="read" parameterType="Board" resultMap="boardResultMap">
+		SELECT board_seq, type_seq, member_id, member_nick, title, content, has_file, DATE_FORMAT(create_dtm, '%Y-%m-%d %H:%i:%s') as formatted_create_dtm
+		FROM S_WonseokDevKim.board
+		WHERE board_seq = #{boardSeq} and type_seq = #{typeSeq}
 	</select>
 
-	<update id="updateHits" parameterType="HashMap" >
+	<update id="updateHits" parameterType="Board" >
+		UPDATE S_WonseokDevKim.board
+		SET hits=hits + 1
+		WHERE board_seq = #{boardSeq} and type_seq = #{typeSeq};
 	</update>
 
 	<update id="update" parameterType="HashMap">

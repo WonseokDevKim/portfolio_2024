@@ -12,6 +12,7 @@ public class PageHandler {
 	private boolean showPrev; // 이전 page navi 가능 여부
 	private boolean showNext; // 다음 page navi 가능 여부
 	
+	public PageHandler() {}
 	
 	public PageHandler(int totalCnt, int currentPage) {
 		this(totalCnt, currentPage, 10);

@@ -11,11 +11,16 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		VALUES(#{typeSeq}, #{boardSeq}, #{fileName}, #{fakeFileName}, #{fileSize}, #{fileType}, #{saveLoc}, DATE_FORMAT(now(), '%Y%m%d%H%i%s'))
 	</insert>
 	
- 	<select id="readAttFiles" parameterType="HashMap" resultType="HashMap">
- 	
+ 	<select id="readAttFiles" parameterType="Board" resultType="BoardAttatch">
+ 		SELECT file_idx, file_name, file_size
+		FROM S_WonseokDevKim.board_attach
+		WHERE type_seq=#{typeSeq} and board_seq=#{boardSeq}
 	</select>
  	
- 	<select id="readAttFileByPk" parameterType="int" resultType="HashMap">
+ 	<select id="readAttFileByPk" parameterType="int" resultType="BoardAttatch">
+ 		SELECT file_idx, file_name, fake_filename, file_size, file_type, save_loc, create_dtm
+		FROM S_WonseokDevKim.board_attach
+		WHERE file_idx = #{fileIdx}
  	</select>
  	
  	<delete id ="deleteAttFile" parameterType="HashMap">

@@ -31,14 +31,14 @@ public interface BoardDao {
 	/**
 	 * 글 조회  
 	 */
-	public HashMap<String, Object> read(HashMap<String, Object> params);
+	public BoardDto read(BoardDto boardDto);
 	
 	/**
 	 * 조회수 증가.
 	 * @param params
 	 * @return
 	 */
-	public int updateHits(HashMap<String, Object> params);
+	public int updateHits(BoardDto boardDto);
 	
 	/**
 	 * 글 수정 update 

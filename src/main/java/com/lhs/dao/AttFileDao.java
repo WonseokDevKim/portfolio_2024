@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.lhs.dto.BoardAttatchDto;
+import com.lhs.dto.BoardDto;
+
 
 
 public interface AttFileDao {
@@ -19,14 +22,14 @@ public interface AttFileDao {
 	 * @param params
 	 * @return
 	 */
-	public List<HashMap<String, Object>> readAttFiles(HashMap<String, Object> params);
+	public List<BoardAttatchDto> readAttFiles(BoardDto boardDto);
 	
 	/**
 	 *	pk를 통해 해당 첨부파일 불러오기.
 	 * @param fileIdx
 	 * @return
 	 */
-	public HashMap<String, Object> readAttFileByPk(int fileIdx);
+	public BoardAttatchDto readAttFileByPk(int fileIdx);
 	
 	
 	/**첨부파일 삭제(수정 페이지에서 삭제버튼 눌러 삭제하는 경우임) 
