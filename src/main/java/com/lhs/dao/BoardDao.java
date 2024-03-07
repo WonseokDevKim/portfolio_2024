@@ -59,7 +59,7 @@ public interface BoardDao {
 	 * @param params
 	 * @return
 	 */
-	public int delete(HashMap<String, Object> params);
+	public int delete(BoardDto boardDto);
 	
 	
 }

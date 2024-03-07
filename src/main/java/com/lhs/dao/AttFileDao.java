@@ -44,7 +44,7 @@ public interface AttFileDao {
 	 * @param params
 	 * @return
 	 */
-	public int deleteAttFileByBoard(HashMap<String, Object> params);
+	public int deleteAttFileByBoard(BoardDto boardDto);
 	
 	/**
 	 * 모든 첨부파일 셀렉

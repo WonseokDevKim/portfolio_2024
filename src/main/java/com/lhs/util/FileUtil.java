@@ -70,7 +70,7 @@ public class FileUtil {
 	/* 파일 삭제 */
 	public boolean deleteFile(HashMap<String, Object> fileInfo) {
 		//1. 파일 찾기 File(파일위치, 파일명)  
-		File f = new File(saveLocation, String.valueOf(fileInfo.get("fake_file_name")));
+		File f = new File(saveLocation, String.valueOf(fileInfo.get("fake_filename")));
 		if(f.exists()) { // 물리적 위치에 존재하면
 			return f.delete();	// 지우라.
 			

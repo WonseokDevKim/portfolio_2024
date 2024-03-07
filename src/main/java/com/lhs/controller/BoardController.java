@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -217,14 +218,44 @@ public class BoardController {
 
 	@RequestMapping("/board/delete.do")
 	@ResponseBody
-	public HashMap<String, Object> delete(@RequestParam HashMap<String, Object> params, HttpSession session) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
+	public HashMap<String, Object> delete(//@RequestParam HashMap<String, Object> params,
+			BoardDto boardDto,
+			HttpSession session) {
+		// 처리 결과 담을 map
+		HashMap<String, Object> map = new HashMap<>();
+		System.out.println("read.jsp에서 넘어온 값 : " + boardDto);
+		// boardSeq, typeSeq에 해당하는 boardDto 가져오기
+		boardDto = bService.read(boardDto);
+		
+		// 해당 게시물 존재하지 않으면 에러 메시지 출력
+		if(ObjectUtils.isEmpty(boardDto)) {
+			map.put("msg", "해당 게시물은 존재하지 않습니다.");
+			map.put("result", 0);
+			return map;
 		}
-		return null; // 비동기: map return 
+		
+		// 로그인한 사용자가 아니면 삭제 방지
+		if(!StringUtils.pathEquals(boardDto.getMemberId(), (String)session.getAttribute("memberId"))) {
+			map.put("msg", "작성자가 일치하지 않습니다.");
+			map.put("result", 0);
+			return map;
+		}
+		
+		System.out.println("db에서 읽어온 boarDto : " + boardDto);
+		// 삭제 성공하면 반환값 : 1 (게시물 하나)
+		int result = bService.delete(boardDto);
+		if(result == 1) {
+			map.put("msg", "게시물 삭제 성공");
+		} else {
+			map.put("msg", "게시물 삭제 실패");
+		}
+		
+		map.put("result", result);
+		
+		return map; // 비동기: map return 
 	}
-
+	
+	// 게시물 수정에서 파일 삭제할 때
 	@RequestMapping("/board/deleteAttFile.do")
 	@ResponseBody
 	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {

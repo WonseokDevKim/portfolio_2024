@@ -24,9 +24,32 @@ $(document).ready(function(){
 	
 	$('#btnDelete').on('click', function(){		
 		if(confirm("삭제하시겠습니까?")){
-			// code here
+			customAjax("<c:url value='/board/delete.do' />", "/board/list.do?currentPage=${currentPage}&pageSize=${pageSize}");
 		}
 	});
+	
+	function customAjax(url, responseUrl) {
+		  var frm = document.readForm;
+		  var formData = new FormData(frm);
+		     $.ajax({
+		         url : url,
+		         data : formData,
+		         type : 'POST',
+		         dataType : "text",
+		         processData : false,
+		         contentType : false,
+		         success : function (result, textStatus, XMLHttpRequest) {
+		             var data = $.parseJSON(result);
+		             alert(data.msg);
+		             var boardSeq = data.boardSeq;
+		             movePage(responseUrl);
+		         },
+		         error : function (XMLHttpRequest, textStatus, errorThrown) {
+		        	 alert("에러 발생\n관리자에게 문의바랍니다.");
+		        	 console.log("에러\n" + XMLHttpRequest.responseText);
+		       	 }
+		 	});
+	}
 	
 });//ready 
 </script>
@@ -39,8 +62,8 @@ $(document).ready(function(){
 				<!-- LEFT -->
 				<div class="col-md-12 order-md-1">
 					<form name="readForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
-						<input type="hidden" name="boardSeq" value ="PK1"/>
-						<input type="hidden" name="typeSeq" value ="PK2"/>
+						<input type="hidden" name="boardSeq" value ="${boardDto.boardSeq}"/>
+						<input type="hidden" name="typeSeq" value ="${boardDto.typeSeq}"/>
 					</form>
 					<!-- post -->
 					<div class="clearfix mb-80">

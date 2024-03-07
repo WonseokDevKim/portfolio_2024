@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.lhs.dao.AttFileDao;
 import com.lhs.dao.BoardDao;
+import com.lhs.dto.BoardAttatchDto;
 import com.lhs.dto.BoardDto;
 import com.lhs.service.BoardService;
 import com.lhs.util.FileUtil;
@@ -71,11 +72,40 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int delete(HashMap<String, Object> params) {
-		if(params.get("hasFile").equals("Y")) { // 첨부파일 있으면 		
-			 // 파일 처리
+	@Transactional
+	public int delete(BoardDto boardDto) {
+		try {
+			if(boardDto.getHasFile().equals("Y")) { // 첨부파일 있으면 파일 처리
+				// boardDto에 해당하는 List<BoardAttatchDto> 들을 가져온다.
+				List<BoardAttatchDto> attDtoList = attFileDao.readAttFiles(boardDto);
+				
+				// List수만큼 순회하며 물리적으로 삭제
+				for(BoardAttatchDto boardAttatch : attDtoList) {
+					HashMap<String, Object> fileInfo = new HashMap<>();
+					fileInfo.put("fake_filename", boardAttatch.getFakeFileName());
+					boolean isDelete = fileUtil.deleteFile(fileInfo); // 물리적 삭제
+					if(!isDelete) {
+						throw new RuntimeException("파일 삭제 실패");
+					}
+				}
+				// DB상에서도 파일정보 삭제
+				int fileDelCnt = attFileDao.deleteAttFileByBoard(boardDto);
+				if(!(fileDelCnt > 0)) {
+					throw new RuntimeException("DB 파일 정보 삭제 실패");
+				}
+			}
+			// 게시글 삭제
+			int result = bDao.delete(boardDto);
+			if(result != 1) {
+				throw new RuntimeException("게시글 삭제 실패");
+			}
+			return result;
+		} catch(Exception e) {
+			// 트랜잭션 롤백
+	        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        e.printStackTrace();
+	        return -1;
 		}
-		return bDao.delete(params);
 	}
 
 	@Override

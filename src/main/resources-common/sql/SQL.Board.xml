@@ -52,8 +52,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	 	 
 	 </update>
 	
-	<delete id="delete" parameterType="HashMap">
-		
+	<delete id="delete" parameterType="Board">
+		DELETE FROM S_WonseokDevKim.board
+		WHERE board_seq=#{boardSeq} AND type_seq=#{typeSeq};
 	</delete>
 
 

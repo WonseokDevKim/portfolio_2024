@@ -37,7 +37,7 @@ public interface BoardService {
 	 * @param params
 	 * @return
 	 */
-	public int delete(HashMap<String, Object> params);
+	public int delete(BoardDto boardDto);
 	
 	public int write(BoardDto boardDto, List<MultipartFile> mFiles);
 

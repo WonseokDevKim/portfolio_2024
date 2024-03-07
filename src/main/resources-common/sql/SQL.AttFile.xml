@@ -12,7 +12,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</insert>
 	
  	<select id="readAttFiles" parameterType="Board" resultType="BoardAttatch">
- 		SELECT file_idx, file_name, file_size
+ 		SELECT file_idx, file_name, fake_filename, file_size
 		FROM S_WonseokDevKim.board_attach
 		WHERE type_seq=#{typeSeq} and board_seq=#{boardSeq}
 	</select>
@@ -26,7 +26,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
  	<delete id ="deleteAttFile" parameterType="HashMap">
  	</delete>
  	
- 	<delete id ="deleteAttFileByBoard" parameterType="HashMap">
+ 	<delete id ="deleteAttFileByBoard" parameterType="Board">
+ 		DELETE FROM S_WonseokDevKim.board_attach
+		WHERE type_seq=#{typeSeq} and board_seq=#{boardSeq}
  	</delete>
  	
  	<select id="readAllAttFiles" resultType="HashMap">
