@@ -109,7 +109,7 @@ $(document).ready(function(){
 							<div class="row">
 								<div class="col-md-12 text-right">
 							<c:if test="${sessionScope.memberId == boardDto.memberId}">				
-									<a href="javascript:movePage('/board/goToUpdate.do?boardSeq=${boardDto.boardSeq}')">
+									<a href="javascript:movePage('/board/goToUpdate.do?boardSeq=${boardDto.boardSeq}&typeSeq=${boardDto.typeSeq}&currentPage=${currentPage}&pageSize=${pageSize}')">
 							       		 <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> 수정</button>
 							   		</a>	
 									<button type="button" class="btn btn-primary"  id="btnDelete">

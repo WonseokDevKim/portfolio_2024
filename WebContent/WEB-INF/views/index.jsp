@@ -61,7 +61,6 @@
 	                  history.back();
 	             }
 	          });
-
 	    });
 	</script>
 </head>

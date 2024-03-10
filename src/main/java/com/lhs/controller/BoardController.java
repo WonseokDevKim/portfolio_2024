@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -193,13 +194,37 @@ public class BoardController {
 
 	//수정  페이지로 	
 	@RequestMapping("/board/goToUpdate.do")
-	public ModelAndView goToUpdate(@RequestParam HashMap<String, Object> params, HttpSession session) {
+	public ModelAndView goToUpdate(BoardDto boardDto, PageHandler ph, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
+		// 처리 결과 boardDto와 List<BoardAttatchDto>를 모델에 담아서 update.jsp로 보내기
 		
+		System.out.println("read.jsp에서 넘어온 값 : " + boardDto);
+		// boardSeq, typeSeq에 해당하는 boardDto 가져오기
+		boardDto.setTypeSeq(2);
+		boardDto = bService.read(boardDto);
+				
+		// 해당 게시물 존재하지 않으면 에러 메시지 출력
+		if(ObjectUtils.isEmpty(boardDto)) {
+			mv.setViewName("redirect:/board/list.do?currentPage="+ph.getCurrentPage()+"&pageSize="+ph.getPageSize());
+			return mv;
+		}
+				
+		// 로그인한 사용자가 아니면 삭제 방지
+		if(!StringUtils.pathEquals(boardDto.getMemberId(), (String)session.getAttribute("memberId"))) {
+			mv.setViewName("redirect:/board/list.do?currentPage="+ph.getCurrentPage()+"&pageSize="+ph.getPageSize());
+			return mv;
+		}		
+		
+		// 모델에 boardDto와 첨부파일 list 담기
+		mv.addObject("boardDto", boardDto);
+		if(StringUtils.pathEquals(boardDto.getHasFile(), "Y")) {
+			List<BoardAttatchDto> attFiles = attFileService.readAttFiles(boardDto);
+			mv.addObject("attFiles", attFiles);
+		}
+		mv.addObject("currentPage", ph.getCurrentPage());
+		mv.addObject("pageSize", ph.getPageSize());
+		mv.setViewName("/board/update");
+	
 		return mv;
 
 	}
@@ -218,7 +243,7 @@ public class BoardController {
 
 	@RequestMapping("/board/delete.do")
 	@ResponseBody
-	public HashMap<String, Object> delete(//@RequestParam HashMap<String, Object> params,
+	public HashMap<String, Object> delete(
 			BoardDto boardDto,
 			HttpSession session) {
 		// 처리 결과 담을 map
@@ -258,8 +283,8 @@ public class BoardController {
 	// 게시물 수정에서 파일 삭제할 때
 	@RequestMapping("/board/deleteAttFile.do")
 	@ResponseBody
-	public HashMap<String, Object> deleteAttFile(@RequestParam HashMap<String, Object> params) {
-
+	public HashMap<String, Object> deleteAttFile(@RequestBody HashMap<String, Object> params) {
+		System.out.println("첨부파일 삭제 클릭 시 params: "+params);
 		if(!params.containsKey("typeSeq")) {
 			params.put("typeSeq", this.typeSeq);
 		}
