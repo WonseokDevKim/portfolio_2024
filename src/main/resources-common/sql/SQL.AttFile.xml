@@ -18,12 +18,14 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	</select>
  	
  	<select id="readAttFileByPk" parameterType="int" resultType="BoardAttatch">
- 		SELECT file_idx, file_name, fake_filename, file_size, file_type, save_loc, create_dtm
+ 		SELECT file_idx, board_seq, file_name, fake_filename, file_size, file_type, save_loc, create_dtm
 		FROM S_WonseokDevKim.board_attach
 		WHERE file_idx = #{fileIdx}
  	</select>
  	
- 	<delete id ="deleteAttFile" parameterType="HashMap">
+ 	<delete id ="deleteAttFile" parameterType="BoardAttatch">
+ 		DELETE FROM S_WonseokDevKim.board_attach
+		WHERE file_idx=#{fileIdx};
  	</delete>
  	
  	<delete id ="deleteAttFileByBoard" parameterType="Board">

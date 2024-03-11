@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lhs.dto.BoardAttatchDto;
 import com.lhs.dto.BoardDto;
 
 public interface BoardService {
@@ -31,7 +32,7 @@ public interface BoardService {
 	 * @param params
 	 * @return
 	 */
-	public boolean deleteAttFile(HashMap<String, Object> params);
+	public int deleteAttFile(BoardAttatchDto boardAttatchDto);
 	
 	/** 글 삭제 delete 
 	 * @param params

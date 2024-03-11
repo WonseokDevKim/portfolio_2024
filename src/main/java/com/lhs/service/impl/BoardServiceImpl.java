@@ -76,6 +76,11 @@ public class BoardServiceImpl implements BoardService{
 	public int delete(BoardDto boardDto) {
 		try {
 			if(boardDto.getHasFile().equals("Y")) { // 첨부파일 있으면 파일 처리
+				// DB상에서 파일정보 삭제
+				int fileDelCnt = attFileDao.deleteAttFileByBoard(boardDto);
+				if(!(fileDelCnt > 0)) {
+					throw new RuntimeException("DB 파일 정보 삭제 실패");
+				}
 				// boardDto에 해당하는 List<BoardAttatchDto> 들을 가져온다.
 				List<BoardAttatchDto> attDtoList = attFileDao.readAttFiles(boardDto);
 				
@@ -87,11 +92,6 @@ public class BoardServiceImpl implements BoardService{
 					if(!isDelete) {
 						throw new RuntimeException("파일 삭제 실패");
 					}
-				}
-				// DB상에서도 파일정보 삭제
-				int fileDelCnt = attFileDao.deleteAttFileByBoard(boardDto);
-				if(!(fileDelCnt > 0)) {
-					throw new RuntimeException("DB 파일 정보 삭제 실패");
 				}
 			}
 			// 게시글 삭제
@@ -109,9 +109,47 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public boolean deleteAttFile(HashMap<String, Object> params) {
-		boolean result = false;		
-		return result;
+	@Transactional
+	public int deleteAttFile(BoardAttatchDto boardAttatchDto) {
+		try {
+			// dto의 fileIdx에 해당하는 파일정보를 가져온다.
+			boardAttatchDto = attFileDao.readAttFileByPk(boardAttatchDto.getFileIdx());
+			
+			// 파일정보DB에서 해당 행 삭제
+			int result = attFileDao.deleteAttFile(boardAttatchDto);
+			if(result != 1) {
+				throw new RuntimeException("DB 파일 정보 삭제 실패");
+			}
+			
+			// boardSeq에 해당하는 첨부파일 수 == 0 이면 boardDto의 hasFile을 "N"으로 변경
+			BoardDto boardDto = new BoardDto();
+			boardDto.setBoardSeq(boardAttatchDto.getBoardSeq());
+			boardDto.setTypeSeq(2);
+			List<BoardAttatchDto> fileList = attFileDao.readAttFiles(boardDto);
+			System.out.println("게시물 번호에 해당하는 파일 목록 : " + fileList);
+			if(ObjectUtils.isEmpty(fileList)) {
+				int changeHasFile = bDao.updateHasFileToZero(boardDto);
+				if(changeHasFile != 1) {
+					throw new RuntimeException("파일 존재 여부 변경 실패");
+				}
+			}
+
+			// 물리적파일명(fake_filename)에 일치하는 파일 물리적 삭제
+			HashMap<String, Object> fileInfo = new HashMap<>();
+			fileInfo.put("fake_filename", boardAttatchDto.getFakeFileName());
+			boolean isDelete = fileUtil.deleteFile(fileInfo); // 물리적 삭제
+			if(!isDelete) {
+				throw new RuntimeException("파일 삭제 실패");
+			}
+			
+			// 정상적으로 파일 삭제 되었다면 1 반환
+			return result;
+		} catch(Exception e) {
+			// 트랜잭션 롤백
+	        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        e.printStackTrace();
+	        return -1;
+		}
 	}
 	
 	@Override

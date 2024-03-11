@@ -37,7 +37,7 @@ public interface AttFileDao {
 	 * @param params
 	 * @return
 	 */
-	public int deleteAttFile(HashMap<String, Object> params);
+	public int deleteAttFile(BoardAttatchDto boardAttatchDto);
 	
 	/** 첨부파일 삭제(글 삭제하는 경우 첨부파일도 삭제되어야함) 
 	 * 
@@ -60,7 +60,5 @@ public interface AttFileDao {
 	 * 파일 없으면 컬럼 linked 값 수정 여러건. 
 	 */
 	public int updateLinkedInfos(ArrayList<Integer> fileIdxs);
-	
-	
 	
 }

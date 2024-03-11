@@ -283,12 +283,12 @@ public class BoardController {
 	// 게시물 수정에서 파일 삭제할 때
 	@RequestMapping("/board/deleteAttFile.do")
 	@ResponseBody
-	public HashMap<String, Object> deleteAttFile(@RequestBody HashMap<String, Object> params) {
-		System.out.println("첨부파일 삭제 클릭 시 params: "+params);
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
-		}
-		return null;
+	public int deleteAttFile(BoardAttatchDto boardAttatchDto) {
+		System.out.println("첨부파일 삭제 클릭 시 params: "+boardAttatchDto);
+		boardAttatchDto.setTypeSeq(Integer.parseInt(this.typeSeq));
+		// result == 1 이면 삭제 성공
+		int result = bService.deleteAttFile(boardAttatchDto);
+		return result;
 	} 
 
 	

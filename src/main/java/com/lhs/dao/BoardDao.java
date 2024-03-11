@@ -52,7 +52,7 @@ public interface BoardDao {
 	 * @param params
 	 * @return
 	 */
-	public int updateHasFileToZero(HashMap<String, Object> params);
+	public int updateHasFileToZero(BoardDto boardDto);
 
 	 
 	/** 글 삭제 delete 

@@ -22,7 +22,7 @@ public class FileUtil {
 	
 	
 /* 베포용 : saveLocation = "/home/ubuntu/app/upload/" ;
-   개발용 : saveLocation = "/Users/hyesuelee/Documents/portfolio_dir/";  */
+   개발용 : saveLocation = "C:/dev/tmp";  */
 	
 	public void setLocation(String location) {
 		this.saveLocation = location;

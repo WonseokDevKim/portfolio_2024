@@ -48,8 +48,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	
 	</update>
 	
-	<update id="updateHasFileToZero" parameterType="HashMap" >
-	 	 
+	<update id="updateHasFileToZero" parameterType="Board" >
+	 	 UPDATE S_WonseokDevKim.board
+	 	 SET has_file = 'N'
+	 	 WHERE board_seq = #{boardSeq} and type_seq = #{typeSeq};
 	 </update>
 	
 	<delete id="delete" parameterType="Board">
