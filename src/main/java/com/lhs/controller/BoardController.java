@@ -231,14 +231,38 @@ public class BoardController {
 
 	@RequestMapping("/board/update.do")
 	@ResponseBody // !!!!!!!!!!!! 비동기 응답 
-	public HashMap<String, Object> update(@RequestParam HashMap<String,Object> params, 
+	public HashMap<String, Object> update(BoardDto boardDto, 
 			MultipartHttpServletRequest mReq) {
-
-		if(!params.containsKey("typeSeq")) {
-			params.put("typeSeq", this.typeSeq);
+		// 처리 결과 담을 map
+		HashMap<String, Object> map = new HashMap<>();
+		
+		if(!(boardDto.getTypeSeq() == 2)) {
+			boardDto.setTypeSeq(2);
 		}
-
-		return null;
+		
+		// 파일 첨부 되어있다면 hasFile = 'Y', 아니면 = 'N"
+		List<MultipartFile> mFiles = mReq.getFiles("attFiles");
+		for(MultipartFile mFile : mFiles) {
+			if(mFile.getSize() != 0) {
+				boardDto.setHasFile("Y");
+				break;
+			}
+		}
+		System.out.println("업데이트 실행 전 boardDto 값: " + boardDto);
+		// 게시글 수정 및 첨부파일 등록
+		int result = bService.update(boardDto, mReq.getFiles("attFiles"));
+		// result == 1이면 수정 성공
+		if(result == 1) {
+			map.put("msg", "게시물 수정 성공");
+		} else {
+			map.put("msg", "게시물 수정 실패");
+		}
+		
+		map.put("result", result);
+		
+		System.out.println("boardDto : " + boardDto);
+		
+		return map;
 	}
 
 	@RequestMapping("/board/delete.do")

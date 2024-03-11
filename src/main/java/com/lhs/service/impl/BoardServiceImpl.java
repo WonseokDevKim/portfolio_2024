@@ -63,12 +63,60 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int update(HashMap<String, Object> params, List<MultipartFile> mFiles) {
-		if(params.get("hasFile").equals("Y")) { // 첨부파일 존재시 			
-			// 파일 처리
-		}	
-		// 글 수정 dao 
-		return bDao.update(params);
+	@Transactional
+	public int update(BoardDto boardDto, List<MultipartFile> mFiles) {
+		try {
+			// 게시글 수정
+			int result = bDao.update(boardDto);
+			if(result != 1) {
+				throw new RuntimeException("게시글 수정 실패");
+			}
+			
+			if(boardDto.getHasFile().equals("N")) { // 첨부파일 없으면 바로 리턴 			
+				return result;
+			}
+			// 파일 정보는 새로운 map에 저장
+			HashMap<String, Object> map = new HashMap<>();
+			for(MultipartFile mFile : mFiles) {
+				System.out.println(mFile.getContentType());
+				System.out.println(mFile.getOriginalFilename());
+				System.out.println(mFile.getName());
+				System.out.println(mFile.getSize());
+				System.out.println("----- file info -----");
+						
+				// 파일크기 0이면 등록 안 한 것이므로 스킵
+				if(mFile.getSize() == 0) continue;
+						
+				// to-do: smart_123.pdf -> (UUID).pdf
+				// to-do : smart_123.456.pdf -> (UUID).pdf
+				String fakeName = UUID.randomUUID().toString().replaceAll("-", "");
+				try {
+					fileUtil.copyFile(mFile, fakeName);
+					map.put("typeSeq", boardDto.getTypeSeq());
+					map.put("boardSeq", boardDto.getBoardSeq());
+					map.put("fileName", mFile.getOriginalFilename());
+					map.put("fakeFileName", fakeName);
+					map.put("fileSize", mFile.getSize());
+					map.put("fileType", mFile.getContentType());
+					map.put("saveLoc", saveLocation);
+					result = attFileDao.addAttFile(map);
+					if (result != 1) {
+			           // 파일 등록이 실패하면 예외를 던짐
+			           throw new RuntimeException("파일 등록 실패");
+			        }
+				} catch (IOException e) {
+					// 파일 복사 중 오류 발생하면 예외를 던지고 롤백
+			        throw new RuntimeException("파일 복사 중 오류 발생", e);
+				}	
+			}
+			// 글 수정 dao 
+			return result;
+		} catch(Exception e) {
+			// 트랜잭션 롤백
+	        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	        e.printStackTrace();
+	        return -1;
+		}
 	}
 
 	@Override

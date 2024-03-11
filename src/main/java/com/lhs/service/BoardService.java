@@ -25,7 +25,7 @@ public interface BoardService {
 	 * @param params
 	 * @return
 	 */
-	public int update(HashMap<String, Object> params, List<MultipartFile> mFiles);
+	public int update(BoardDto boardDto, List<MultipartFile> mFiles);
 	
 	/**첨부파일 삭제(수정 페이지에서 삭제버튼 눌러 삭제하는 경우임) 
 	 * 
