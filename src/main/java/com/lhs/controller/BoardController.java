@@ -35,16 +35,22 @@ public class BoardController {
 	private String typeSeq = "2";
 
 	@RequestMapping("/board/list.do")
-	public ModelAndView boardList(Integer currentPage, Integer pageSize) {
+	public ModelAndView boardList(Integer currentPage, Integer pageSize, String option, String keyword) {
 		ModelAndView mv = new ModelAndView();
 		HashMap<String, Object> params = new HashMap<>();
 		
 		if(currentPage == null) currentPage = 1;
 		if(pageSize == null) pageSize = 10;
-		params.put("typeSeq", typeSeq);
+		if(option == null || "".equals(option)) option = "A";
+		if(keyword == null || "".equals(keyword)) keyword = "";
 		
+		params.put("typeSeq", this.typeSeq);
+		params.put("option", option);
+		params.put("keyword", keyword);
+		System.out.println("컨트롤러에서 넘어온 params: " + params);
 		// 총 게시글 수 구하기
 		int totalCnt = bService.getTotalArticleCnt(params);
+		System.out.println("총 게시물 수: " + totalCnt);
 		PageHandler ph = new PageHandler(totalCnt, currentPage);
 		// 게시글 목록 가져오기
 		params.put("offset", ph.getOffset());
@@ -54,6 +60,8 @@ public class BoardController {
 		// 게시글 목록 list.jsp에 담아서 출력
 		mv.addObject("list", list);
 		mv.addObject("ph", ph);
+		mv.addObject("option", params.get("option"));
+		mv.addObject("keyword", params.get("keyword"));
 		mv.setViewName("/board/list");
 		return mv;
 	}
@@ -119,7 +127,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/board/read.do")
-	public ModelAndView read(BoardDto boardDto, PageHandler ph) {
+	public ModelAndView read(BoardDto boardDto, PageHandler ph, String option, String keyword) {
 		ModelAndView mv = new ModelAndView();
 		// /board/read.do?boardSeq=477&currentPage=1&pageSize=10
 		// BoardDto외의 데이터들도 있다. boardDto, ph 두개로 받으니 둘에 해당하는 값 잘 들어옴.
@@ -153,6 +161,8 @@ public class BoardController {
 		mv.addObject("boardDto", boardDto);
 		mv.addObject("currentPage", ph.getCurrentPage());
 		mv.addObject("pageSize", ph.getPageSize());
+		mv.addObject("option", option);
+		mv.addObject("keyword", keyword);
 		mv.setViewName("/board/read");
 		return mv;
 	}	

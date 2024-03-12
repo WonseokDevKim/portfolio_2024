@@ -119,12 +119,12 @@ $(document).ready(function(){
 								
 					   		<c:choose>
 				        		<c:when test="${empty currentPage || empty pageSize}">
-					        		<a href="javascript:movePage('/board/list.do')">
+					        		<a href="javascript:movePage('/board/list.do?option=${option}&keyword=${keyword}')">
 							        	<button type="button" class="btn btn-primary">목록</button>
 							   		</a>
 				        		</c:when>
 				        		<c:otherwise>
-				        			<a href="javascript:movePage('/board/list.do?currentPage=${currentPage}&pageSize=${pageSize}')">
+				        			<a href="javascript:movePage('/board/list.do?currentPage=${currentPage}&pageSize=${pageSize}&option=${option}&keyword=${keyword}')">
 								        <button type="button" class="btn btn-primary">목록</button>
 							   		</a>
 				        		</c:otherwise>

@@ -15,6 +15,19 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		SELECT board_seq, member_nick, title, hits, DATE_FORMAT(create_dtm, '%Y-%m-%d %H:%i:%s') as formatted_create_dtm
 		FROM S_WonseokDevKim.board
 		WHERE type_seq = #{typeSeq}
+		<choose>
+			<when test='option=="T"'>
+				AND title LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="W"'>
+				AND member_nick LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="A"'>
+				AND (title LIKE concat('%', #{keyword}, '%') OR content LIKE concat('%', #{keyword}, '%'))
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 		ORDER BY board_seq DESC
 		LIMIT #{offset}, #{pageSize}
 	</select>
@@ -23,6 +36,19 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		SELECT count(1)
 		FROM S_WonseokDevKim.board
 		WHERE type_seq = #{typeSeq}
+		<choose>
+			<when test='option=="T"'>
+				AND title LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="W"'>
+				AND member_nick LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="A"'>
+				AND (title LIKE concat('%', #{keyword}, '%') OR content LIKE concat('%', #{keyword}, '%'))
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
 	</select>
 	
 	<insert id ="write" parameterType="Board" useGeneratedKeys="true" keyProperty="boardSeq" >

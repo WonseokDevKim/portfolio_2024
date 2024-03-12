@@ -4,11 +4,97 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+		.search-container {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .search-form {
+            height: 37px;
+            display: flex;
+        }
+        .search-option {
+            width: 100px;
+            height: 100%;
+            outline: none;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            color: gray;
+        }
+		
+		select {
+			padding: 0;
+		}
+		
+        .search-option > option {
+            text-align: center;
+        }
+
+        .search-input {
+            color: gray;
+            background-color: white;
+            border: 1px solid #ccc;
+            height: 100%;
+            width: 300px;
+            font-size: 15px;
+            padding: 5px 7px;
+        }
+        .search-input::placeholder {
+            color: gray;
+        }
+
+        .search-button {
+            /* 메뉴바의 검색 버튼 아이콘  */
+            width: 20%;
+            height: 37px;
+            background-color: rgb(22, 22, 22);
+            color: rgb(209, 209, 209);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            margin-bottom:30px;
+        }
+        .search-button:hover {
+            color: rgb(165, 165, 165);
+            cursor: pointer;
+        }
+</style>
+<script src="<c:url value='/resources/js/common.js'/>"></script>
+<script>
+
+	$('.search-button').on('click', function() {
+		let option = document.querySelector('.search-option').value;
+		let keyword = document.querySelector('.search-input').value;
+		console.log(option);
+		console.log(keyword);
+		let toSearch = "/board/list.do?option=" + option + "&keyword=" + keyword;
+		console.log(toSearch);
+		movePage(toSearch);
+	})
+	
+	
+</script>
 </head>
 <body>
 <section>
 	<div class="container">
 		<h4>자유게시판</h4>
+		<div class="search-container">
+			<form name="searchForm" class="search-form" method="get">
+				<select class="search-option" name="option">
+					<option value="A" ${option=='A' || option=='' ? "selected" : ""}>제목+내용</option>
+					<option value="T" ${option=='T' ? "selected" : ""}>제목</option>
+					<option value="W" ${option=='W' ? "selected" : ""}>작성자</option>
+				</select>
+				<input type="text" name="keyword" class="search-input" value="${keyword}" placeholder="검색어를 입력하세요.">
+			</form>
+			
+			<button type="button" class="search-button">검색</button>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-sm">
 				<colgroup>
@@ -54,7 +140,7 @@
 				    <li class="page-item">
 					    <c:choose>
 					        <c:when test="${ph.showPrev}">
-					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.beginPage - 1}&pageSize=${ph.pageSize}')">&laquo;</a>
+					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.beginPage - 1}&pageSize=${ph.pageSize}&option=${option}&keyword=${keyword}')">&laquo;</a>
 					        </c:when>
 					        <c:otherwise>
 					        	<%-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 --%>
@@ -63,12 +149,12 @@
 					    </c:choose>
 					</li>
 					<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-						<li class="page-item <c:if test="${i eq ph.currentPage}">active</c:if>"><a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${i}&pageSize=${ph.pageSize}')">${i}</a></li>
+						<li class="page-item <c:if test="${i eq ph.currentPage}">active</c:if>"><a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${i}&pageSize=${ph.pageSize}&option=${option}&keyword=${keyword}')">${i}</a></li>
 					</c:forEach>
 			        <li class="page-item">
 					    <c:choose>
 					        <c:when test="${ph.showNext}">
-					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.endPage + 1}&pageSize=${ph.pageSize}')">&raquo;</a>
+					       		<a class="page-link" href="javascript:movePage('/board/list.do?currentPage=${ph.endPage + 1}&pageSize=${ph.pageSize}&option=${option}&keyword=${keyword}')">&raquo;</a>
 					        </c:when>
 					        <c:otherwise>
 					        	<%-- 이전 페이지로 갈 수 없는 경우 링크 비활성화 --%>
