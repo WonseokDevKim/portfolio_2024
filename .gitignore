@@ -78,8 +78,14 @@ buildNumber.properties
 
 # Eclipse m2e generated files
 # Eclipse Core
+<<<<<<< HEAD
 
 # JDT-specific (Eclipse Java Development Tools)
+=======
+# .project
+# JDT-specific (Eclipse Java Development Tools)
+# .classpath
+>>>>>>> 9d093edde1bc9ba3ea040df6fb1aa5b7bd3a425a
 .factorypath
 
 ### VisualStudioCode ###
