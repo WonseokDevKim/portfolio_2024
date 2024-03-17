@@ -70,6 +70,13 @@
 			<artifactId>jakarta.mail</artifactId>
 			<version>1.6.7</version>
 		</dependency>
+		
+		<!-- 자바에서 메일 보내기 위한 dependency -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version> <!-- 최신 버전으로 확인하세요 -->
+		</dependency>
 
 		<!-- json library -->
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
@@ -325,7 +332,7 @@
 			    <artifactId>tomcat7-maven-plugin</artifactId>
 			    <version>2.2</version>
 			    <configuration>
-			        <url>http://${instance_domain}:8080/manager/text</url>
+			        <url>http://ec2-13-125-117-130.ap-northeast-2.compute.amazonaws.com:8080/manager/text</url>
 			        <server>TomcatServer</server>
 			        <path>/${project.build.finalName}</path>
 			        <username>admin123</username>
