@@ -15,6 +15,7 @@
         .search-form {
             height: 37px;
             display: flex;
+            margin-bottom:30px;
         }
         .search-option {
             width: 100px;
@@ -56,7 +57,7 @@
             align-items: center;
             justify-content: center;
             font-size: 15px;
-            margin-bottom:30px;
+            margin-bottom:30px
         }
         .search-button:hover {
             color: rgb(165, 165, 165);
@@ -84,14 +85,16 @@
 	<div class="container">
 		<h4>자유게시판</h4>
 		<div class="search-container">
-			<form name="searchForm" class="search-form" method="get">
+			<!-- <form name="searchForm" class="search-form" method="get"> -->
+			<div class="search-form">
 				<select class="search-option" name="option">
 					<option value="A" ${option=='A' || option=='' ? "selected" : ""}>제목+내용</option>
 					<option value="T" ${option=='T' ? "selected" : ""}>제목</option>
 					<option value="W" ${option=='W' ? "selected" : ""}>작성자</option>
 				</select>
 				<input type="text" name="keyword" class="search-input" value="${keyword}" placeholder="검색어를 입력하세요.">
-			</form>
+			</div>
+			<!--  </form> -->
 			
 			<button type="button" class="search-button">검색</button>
 		</div>
@@ -120,7 +123,7 @@
 						<td align="center">${board.boardSeq}</td>
 						<td>
 							<span class="bold">
-								<a href="javascript:movePage('/board/read.do?boardSeq=${board.boardSeq}&currentPage=${ph.currentPage}&pageSize=${ph.pageSize}')">
+								<a href="javascript:movePage('/board/read.do?boardSeq=${board.boardSeq}&currentPage=${ph.currentPage}&pageSize=${ph.pageSize}&option=${option}&keyword=${keyword}')">
 									${board.title}
 								</a>
 							</span>

@@ -86,29 +86,16 @@
 								<h3>Skills</h3>
 							</div>
 
-							<div class="progress progress-lg"><!-- progress bar -->
-								<div class="progress-bar progress-bar-warning progress-bar-striped active text-left" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%; min-width: 2em;">
+							<!--<div class="progress progress-lg">
+								  <div class="progress-bar progress-bar-warning progress-bar-striped active text-left" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%; min-width: 2em;">
 									<span>JAVA 90%</span>
-								</div>
-							</div><!-- /progress bar -->
-
-							<div class="progress progress-lg"><!-- progress bar -->
-								<div class="progress-bar progress-bar-danger progress-bar-striped active text-left" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100" style="width: 98%; min-width: 2em;">
-									<span>HTML/JSP 98%</span>
-								</div>
-							</div><!-- /progress bar -->
-
-							<div class="progress progress-lg"><!-- progress bar -->
-								<div class="progress-bar progress-bar-success progress-bar-striped active text-left" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%; min-width: 2em;">
-									<span>JAVASCRIPT 60%</span>
-								</div>
-							</div><!-- /progress bar -->
-
-							<div class="progress progress-lg"><!-- progress bar -->
-								<div class="progress-bar progress-bar-info progress-bar-striped active text-left" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;">
-									<span>MYSQL 88%</span>
-								</div>
-							</div><!-- /progress bar -->
+								</div> 
+							</div> --> <!-- /progress bar -->
+							<div>JAVA</div>
+							<div>HTML/JSP</div>
+							<div>JavaScript</div>
+							<div>MySQL</div>
+							
 						</div>
 					</div>
 					

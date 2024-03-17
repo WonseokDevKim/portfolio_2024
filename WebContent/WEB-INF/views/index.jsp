@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>JohnDoe's Portfolio </title>
+	<title>Wonseok's Portfolio </title>
 	<meta name="description" content="" />
 	<meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
 
@@ -76,7 +76,7 @@
 						<c:choose>
 	                    	<c:when test='${sessionScope.memberId != null}'>
 	                    	<%-- 로그인 사용자 정보 --%>
-	                    		<li><a tabindex="-1" href="javascript:movePage('/member/goEmailAuthPage.do')">이메일 인증하기</a></li>
+	                    		<%-- <li><a tabindex="-1" href="javascript:movePage('/member/goEmailAuthPage.do')">이메일 인증하기</a></li> --%>
 								<li class="text-welcome hidden-xs-down">Welcome!! <strong>${sessionScope.memberNick}</strong></li>
 								<li><a tabindex="-1" href="<c:url value='/member/logout.do'/>"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
 	                    	</c:when>
@@ -180,7 +180,7 @@
 									data-endspeed="1000"
 									data-endeasing="Power4.easeIn" style="z-index: 10; font-size:20px;">
 									<span class="fw-300"> 잘 오셨습니다.
-									<b style="font-size:20px">아무개</b>의 포트폴리오 사이트 입니다. :) </span>
+									<b style="font-size:20px">김원석</b>의 포트폴리오 사이트 입니다. :) </span>
 								</div>
 	
 								<div class="tp-caption customin ltl tp-resizeme large_bold_white"
@@ -216,13 +216,13 @@
 									<br/>
 									<span style="font-size:20px;font-weight:400;line-height: 30px">
 									<ul>
-										<li>Spring Framework 5.3.32 / myBatis 3.4.1 / jUnit 4.12</li>
-										<li>jQuery 3.2.1/ jQuery UI 1.12.1/ jqGrid 4.4.3 / Maven / log 4.12 </li>
+										<li>Spring Framework 5.3.32 / myBatis 3.5.15 / jUnit 5.10</li>
+										<li>jQuery 3.2.1/ jQuery UI 1.12.1/ jqGrid 4.4.3 / Maven / logback </li>
 										<br/>
 										<li>Languages : JAVA, JSP, JavaScript</li>
 										<li>Server : AWS t2.micro free tier</li>
-										<li>DBMS : MySql 5.7</li>
-										<li>WAS : Tomcat 8.5</li>
+										<li>DBMS : MySql 8.0</li>
+										<li>WAS : Tomcat 9.0</li>
 									</ul>
 									</span>								
 								</div>
@@ -245,7 +245,7 @@
 									data-endelementdelay="0.1"
 									data-endspeed="500"
 									data-endeasing="Power4.easeIn">
-									BEING AWAKE.
+									Seize the day
 								</div>
 	
 								<div class="tp-caption medium_light_white lfb ltt tp-resizeme"
@@ -260,9 +260,9 @@
 									data-endelementdelay="0.1"
 									data-endspeed="500"
 									data-endeasing="Power4.easeIn">
-									Happiness is an accident of nature,<br/>
-									a beautiful and flawless aberration.<br/>
-									<span style="font-size:24px;font-weight:400;">&ndash; Hyesue Lee</span>
+									꾸준히 성장하는 개발자<br/>
+									김원석입니다<br/>
+									<span style="font-size:24px;font-weight:400;"></span>
 								</div>
 							</li>
 						</ul>
@@ -281,14 +281,13 @@
 						<address>
 							<ul class="list-unstyled">
 								<li class="footer-sprite address">
-									주소<br>
-									zip code ~~~<br>
+									서울시<br>
 								</li>
 								<li class="footer-sprite phone">
-									010-cccc-3333
+									010-8888-3333
 								</li>
 								<li class="footer-sprite email">
-									<a href="mailto:#">your_email</a>
+									<a href="mailto:#">@gmail.com</a>
 								</li>
 							</ul>
 						</address>
@@ -320,7 +319,7 @@
 						</a>
 			
 						<div class="sidepanel-content">
-							<h2 class="sidepanel-title">HYESUE's Portfolio</h2>
+							<h2 class="sidepanel-title">Wonseok's Portfolio</h2>
 			
 							<!-- SIDE NAV -->
 							<ul class="list-group">
