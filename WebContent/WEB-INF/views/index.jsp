@@ -122,11 +122,11 @@
 											SPRING BOARD
 										</a>
 										<ul class="dropdown-menu">
-											<li><a href="javascript:movePage('/notice/list.do')">공지사항</a></li>
+											<!--<li><a href="javascript:movePage('/notice/list.do')">공지사항</a></li>-->
 											<li><a href="javascript:movePage('/board/list.do')">자유게시판</a></li>
 										</ul>
 									</li>
-									<li class="dropdown"><!-- NOTES -->
+									<li class="dropdown"> 
 										<a class="dropdown-toggle noicon" href="javascript:movePage('/devNotes.do')">
 											DEV-NOTES
 										</a>
@@ -221,7 +221,7 @@
 										<br/>
 										<li>Languages : JAVA, JSP, JavaScript</li>
 										<li>Server : AWS t2.micro free tier</li>
-										<li>DBMS : MySql 8.0</li>
+										<li>DBMS : MySQL 8.0</li>
 										<li>WAS : Tomcat 9.0</li>
 									</ul>
 									</span>								
@@ -281,13 +281,13 @@
 						<address>
 							<ul class="list-unstyled">
 								<li class="footer-sprite address">
-									서울시<br>
+									서울시 마포구<br>
 								</li>
 								<li class="footer-sprite phone">
-									010-8888-3333
+									010-8531-3678
 								</li>
 								<li class="footer-sprite email">
-									<a href="mailto:#">@gmail.com</a>
+									<a href="mailto:#">dnjstjr2012@gmail.com</a>
 								</li>
 							</ul>
 						</address>
@@ -336,12 +336,12 @@
 										PROFILE
 									</a>
 								</li>
-								<li class="list-group-item">
+							<!--  	<li class="list-group-item">
 									<a href="javascript:movePage('/notice/list.do')">
 										<i class="ico-category et-happy"></i>  
 										NOTICE
 									</a>
-								</li>
+								</li> -->
 								<li class="list-group-item">
 									<a href="javascript:movePage('/board/list.do')">
 										<i class="ico-category et-happy"></i>  
@@ -355,12 +355,6 @@
 										DEV-NOTES
 									</a>
 								</li>
-								<li class="list-group-item">
-									<a href="#">
-										<i class="ico-category et-beaker"></i> 
-										LEARNING
-									</a>
-								</li>
 			
 			
 							</ul>
@@ -368,7 +362,7 @@
 			
 							<!-- Social Icons -->
 							<div class="mt-20">							
-								<a href="#" target='_blank' class="social-icon social-icon-border social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+								<a href="https://github.com/WonseokDevKim" target='_blank' class="social-icon social-icon-border social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
 									<i class="icon-github-circled"></i>
 									<i class="icon-github-circled"></i>
 								</a>

@@ -21,7 +21,7 @@ public class FileUtil {
 	private String saveLocation;
 	
 	
-/* 베포용 : saveLocation = "/home/ubuntu/app/upload/" ;
+/* 베포용 : saveLocation = "/home/ec2-user/app/file/" ;
    개발용 : saveLocation = "C:/dev/tmp";  */
 	
 	public void setLocation(String location) {

@@ -21,10 +21,10 @@
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content" style="width:100%;
 	height:350px;">
 								<div class="box-icon-title">
-									<i class="b-0 fa fa-tablet"></i>
-									<h2>Fully Reposnive</h2>
+									<!--  <i class="b-0 fa fa-tablet"></i>-->
+									<h2>프로젝트 DB 설계</h2>
 								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+								<p>회원, 게시글, 첨부파일, 댓글 테이블 생성 및 관계 설정</p>
 							
 								<button type="button" class="btn btn-default btn-lg lightbox" data-toggle="modal" data-target="#myModal">
 								DB &nbsp; Modeling &nbsp; &nbsp;(IMG)
@@ -44,10 +44,10 @@
 
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
 								<div class="box-icon-title">
-									<i class="b-0 fa fa-random"></i>
-									<h2>Clean Design</h2>
+									<!-- <i class="b-0 fa fa-random"></i> -->
+									<h2>학습 및 오류 해결<br> 정리 노션</h2>
 								</div>
-								<p>nteger posuere erat a ante venenatis dapibus posuere</p>
+								<p><a href='https://phase-hamster-d22.notion.site/b7a4ba1bc1b44b3da39daabe21298c7f' target='_blank'>노션 블로그 링크</a></p>
 							</div>
 
 						</div>
@@ -56,10 +56,10 @@
 
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
 								<div class="box-icon-title">
-									<i class="b-0 fa fa-tint"></i>
-									<h2>Reusable Elements</h2>
+									<!--<i class="b-0 fa fa-tint"></i>-->
+									<h2>GitHub</h2>
 								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+								<p><a href="https://github.com/WonseokDevKim" target='_blank'>깃헙 링크</a></p>
 							</div>
 
 						</div>
@@ -68,10 +68,10 @@
 
 							<div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
 								<div class="box-icon-title">
-									<i class="b-0 fa fa-cogs"></i>
-									<h2>Multipurpose</h2>
+									<!--<i class="b-0 fa fa-cogs"></i>-->
+									<h2>To-do</h2>
 								</div>
-								<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+								<p>공지사항, 이메일 인증, 댓글 기능 구현</p>
 							</div>
 
 						</div>

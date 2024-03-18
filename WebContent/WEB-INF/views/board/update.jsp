@@ -152,8 +152,6 @@ function deleteFile(fileIdx, boardSeq){
 						</div>
 						<div class="card-block">
 							<form name="updateForm" class="validate" method="post" enctype="multipart/form-data" data-success="Sent! Thank you!" data-toastr-position="top-right">
-								<input type="hidden" name="memberId" value="${ sessionScope.memberId }"/>
-								<input type="hidden" name="memberIdx" value="${ sessionScope.memberIdx }"/>
 								<input type="hidden" name="typeSeq" value="${ boardDto.typeSeq}"/>
 								<input type="hidden" name="boardSeq" value="${ boardDto.boardSeq }"/>
 								<input type="hidden" name="hasFile" value="${ boardDto.hasFile }"/>

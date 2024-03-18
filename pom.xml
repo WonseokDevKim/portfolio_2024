@@ -288,6 +288,9 @@
 				<directory>src/main/resources-common</directory>
 			</resource>
 			<resource>
+				<directory>src/main/resources-${env}</directory>
+			</resource>
+			<resource>
 				<directory>${project.build.sourceDirectory}</directory>
 				<includes>
 					<include>**/*.java</include>

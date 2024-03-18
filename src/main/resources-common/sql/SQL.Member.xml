@@ -31,7 +31,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 	
 	<insert id="join" parameterType="map">
 		INSERT INTO S_WonseokDevKim.member
-		(type_seq, member_id, member_pw, member_name, member_nick, email, create_dtm, update_dtm, membercol)
+		(type_seq, member_id, member_pw, member_name, member_nick, email, create_dtm, update_dtm)
 		VALUES(
 			1, 
 			#{memberId}, 
@@ -40,8 +40,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 			#{memberNick}, 
 			#{email}, 
 			DATE_FORMAT(now(), '%Y%m%d%H%i%s'), 
-			DATE_FORMAT(now(), '%Y%m%d%H%i%s'), 
-			NULL
+			DATE_FORMAT(now(), '%Y%m%d%H%i%s')
 		)
 		
 	</insert>
